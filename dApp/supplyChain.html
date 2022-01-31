@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>On Chain Workflow</title>
+  <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/moralis/dist/moralis.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-md navbar-light bg-light">
+    <a class="navbar-brand" href="index.html">On Chain Workflow</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="inbox.html">Inbox<span class="sr-only">(current)</span></a>
+        </li>
+        <!-- <li class="nav-item">
+          <a class="nav-link" href="admin.html">Admin</a>
+        </li> -->
+        <li class="nav-item">
+          <a class="nav-link" href="logout.html">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <h6 class="card-title">User Address:</h6>
+          <p class="card-text text-center" id="userAddress"></p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <h6 class="card-title">User Twitter:</h6>
+          <p class="card-text text-center" id="userTwitterId"></p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <h6 class="card-title">User Team:</h6>
+          <p class="card-text text-center" id="userTeam"></p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <h6 class="card-title">Item Status:</h6>
+          <p class="card-text text-center" id="itemStatus"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container mt-5" id="app">
+    <form>
+      <div class="form-group row">
+        <label for="lineItem1Quantity" class="col-sm-2 col-form-label">Quantity</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="lineItem1Quantity" placeholder="enter quantity">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="lineItem1Description" class="col-sm-2 col-form-label">Description</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="lineItem1Description" placeholder="enter a link to a Tweet containing your wallet address">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="newComment">New Comment</label>
+        <textarea class="form-control" id="newComment" rows="3"></textarea>
+      </div>
+    </form>
+  </div>
+
+  <div class="container" id="comments"></div>
+
+  <div class="row my-5 mx-5">
+    <div class="col md-4 ml-auto" id="entryButtons">
+      <button class="btn btn-primary float-right mx-3" onclick="createItem()">Add SupplyChain Request</button>
+    </div>
+    <div class="col md-4 ml-auto" id="updateButtons">
+      <button class="btn btn-primary float-right mx-3" onclick="updateItem()">Update User Request</button>
+    </div>
+    <div class="col md-4" id="approvalButtons">
+      <button class="btn btn-primary float-right mx-3" onclick="approveItem()">Approve</button>
+      <button class="btn btn-primary float-right" onclick="rejectItem()">Reject</button>
+    </div>
+  </div>
+
+
+  <script type="text/javascript" src="./config.js"></script>
+  <script type="text/javascript" src="./abis/WorkflowEngine.js"></script>
+  <script type="text/javascript" src="./abis/SupplyChainFlow.js"></script>
+  <script type="text/javascript" src="./supplyChain.js"></script>
+</body>
+
+</html>

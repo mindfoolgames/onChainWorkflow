@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>On Chain Workflow</title>
+  <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/moralis/dist/moralis.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-md navbar-light bg-light">
+    <a class="navbar-brand" href="index.html">On Chain Workflow</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="inbox.html">Inbox</a>
+        </li>
+        <!-- <li class="nav-item">
+          <a class="nav-link" href="admin.html">Admin</a>
+        </li> -->
+        <li class="nav-item">
+          <a class="nav-link" href="logout.html">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4">On Chain Workflow</h1>
+      <h3>Moralis-Avalanche Hackathon</h3>
+    </div>
+  </div>
+  <div class="container mb-5">
+    <div class="row mt-5">
+      <h1>Background</h1>
+    </div>
+    <div>
+      <p>In the corporate world there are many use cases that require Workflow or BPM. Large operations teams work together pushing items from state to state and team to team. The status of these items and any SLAs associated with them must be able to be tracked and reported on.</p>
+      <p>When working within a company there is likely no need for a blockchain workflow solution.</p>
+      <p>When dealing with business to business interactions a blockchain solution becomes much more attractive. With an on chain implementation you can allow smart contracts to define the rules by which these interactions occur in a transparent and decentralized way.</p>
+      <p>This project is an On Chain Workflow implementation.</p>
+      <p>Potential use cases include everything from insurance processing, to supply chain, to real estate and banking transactions.</p>
+      <p>At the core, this solution is very simple and could easily be dropped into projects that need basic workflow functionality.</p>
+    </div>
+
+    <div class="row mt-5 mb-3">
+      <h1>Technologies Used</h1>
+    </div>
+    <div>
+      <ul>
+        <li>Metamask Wallet.</li>
+        <li>Avalanche</li>
+        <li>Remix for smart contract deployment.</li>
+        <li>Hardhat for local development.</li>
+        <li>Moralis for web3 integration, metamask login, smart contract interaction, and static site hosting.</li>
+      </ul>
+    </div>
+
+    <div class="row mt-5 mb-3">
+      <h1>Design</h1>
+    </div>
+    <div>
+      <h5>WorkflowEngine.sol</h5>
+      <ul>
+        <li>Controls the inbox / worklist for the user.</li>
+        <li>Maintains the team structure including which team a user is on.</li>
+        <li>Handles item check-in / check-out.</li>
+        <li>Emits an event when a work item is created or updated.</li>
+        <li>Allows smart contracts which represent individual workflows to be registered with it.</li>
+      </ul>
+    </div>
+    <div>
+      <h5>Flow Contracts</h5>
+      <ul>
+        <li>Individual workflows are represented as a smart contract.</li>
+        <li>Maintain the data elements needed for an individual flow.</li>
+        <li>Define the process steps (state).</li>
+        <li>Define which team can work on an item at a specific state.</li>
+        <li>Define the business logic that will determine how an item flows from start to end.</li>
+        <li>Handles the interaction with the WorkFlowEngine contract.</li>
+      </ul>
+    </div>
+    <div>
+      <h5>Sample Flow Contracts:</h5>
+      <h5>AddUserFlow.sol</h5>
+      <ul>
+        <li>Allows a user to associate their TwitterID with their wallet address.</li>
+        <li>Allows a user to request to be added to a team.</li>
+        <li>The idea is that the “Team Admin” group will look for a specific tweet from this id that contains the given wallet address (similar to how some faucets work).</li>
+        <li>Team Admin can accept or reject the request. Accepting will create the necessary twitter id and team associations.</li>
+        <li>If a request is rejected, the user may correct and resubmit.</li>
+        <li>There is a “comments” feature that allows users to communicate with one another.</li>
+      </ul>
+      <h5>SupplyChainFlow.sol</h5>
+      <ul>
+        <li>Simple implementation that allows a user to create a SupplyChain work item with minimal data fields.</li>
+        <li>A user from “Team A” will then look at that item and see if it should be accepted or rejected.</li>
+        <li>If a request is rejected, the user may correct and resubmit.</li>
+        <li>There is a “comments” feature that allows users to communicate with one another.</li>
+      </ul>
+    </div>
+    
+
+    <div class="row mt-5 mb-3">
+      <h1>Areas for improvement</h1>
+    </div>
+    <div>
+      <ul>
+        <li>Convert to a web framework like React or Vue.</li>
+        <li>Leverage the Moralis database and Live Queries functionality to process the inbox item events that are emitted from WorkFlowEngine to render the worklist. Currently this is all done from the smart contract functions but moving to the database would enable this to scale.</li>
+        <li>Investigate Avalanche Subnet functionality to give people the option of deploying to a private or semi-private blockchain.</li>
+        <li>Create an Interface and or Abstract Class for the Smart Contracts to use.</li>
+        <li>Refactor Teams code… allow a user to be part of more than one team, convert team to an enumeration for easier comparison.</li>
+        <li>Refactor the States code… again, switch to an enumeration but also make it more structured.</li>
+        <li>Lock down the smart contracts for functionality and security purposes (there are many TODO comments in the smart contracts for this).</li>
+      </ul>
+    </div>
+  </div>
+
+</body>
+
+</html>
